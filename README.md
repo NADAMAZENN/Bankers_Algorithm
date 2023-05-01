@@ -22,5 +22,23 @@ Banker's Algorithm is a resource allocation and deadlock avoidance algorithm use
 
 ![Request Granted Result Example](https://github.com/NADAMAZENN/Bankers_Algorithm/blob/main/Images/Output.png)
 
+## Installation
+
+To run the Banker's Algorithm program, you need to have Python installed on your system. Follow these steps to get started:
+
+1. Clone this repository to your local machine:
+      $ git clone https://github.com/NADAMAZENN/Bankers_Algorithm.git
+2. Navigate to the project directory:
+      $ cd Bankers_Algorithm
+3. Install the required dependencies. You can use `pip` to install them:
+      $ pip install -r requirements.txt
+
+## Usage
+
+To run the program, execute the `main.py` file:
+    $ python main.py
+    
+This will launch the Banker's Algorithm GUI. Enter the required input data and click "Next" to proceed. Follow the instructions provided by the GUI to request resources and see the algorithm's execution.
+
 
 
