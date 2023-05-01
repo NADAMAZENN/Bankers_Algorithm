@@ -19,6 +19,7 @@ Banker's Algorithm is a resource allocation and deadlock avoidance algorithm use
 ![Steps](https://github.com/NADAMAZENN/Bankers_Algorithm/blob/main/Images/steps.png)
 
 - See the results.
+
 ![Request Granted Result Example](https://github.com/NADAMAZENN/Bankers_Algorithm/blob/main/Images/Output.png)
 
 
