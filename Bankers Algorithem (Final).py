@@ -31,20 +31,37 @@ class BankerGUI:
         self.run_button.grid(row=6, column=1)
         self.firstFrame.mainloop()
 #---------------------------------------------------------------------------------------------------------------------------------------
+    def errorpage(self):
+        self.ErrorFrame  = tk.Tk()
+        self.ErrorFrame.title("Error Message !! ")
+        tk.Label(self.ErrorFrame  , text="Total resources not equal to available resources plus current allocation").grid(row=7, column=0, sticky="w") 
+        self.ErrorFrame.mainloop()
+#---------------------------------------------------------------------------------------------------------------------------------------
     def secondPage(self):
+        
+
         # Get input values
-        self.secoundFrame  = tk.Tk()
-        self.secoundFrame.title("Banker's Algorithm")
         self.total_resources = [int(x) for x in self.total_resources_entry.get().split(",")]
         self.available_resources = [int(x) for x in self.available_resources_entry.get().split(",")]
         self.current_allocation = [[int(x) for x in row.split(",")] for row in self.current_allocation_entry.get().split(";")]
         self.max_need = [[int(x) for x in row.split(",")] for row in self.max_need_entry.get().split(";")]
 
+
+        if self.total_resources != [sum(x) for x in zip(self.available_resources, *self.current_allocation)] :
+            self.errorpage()
+           
+
         self.currentAllocation = np.array(self.current_allocation)
         self.maxNeed = np.array(self.max_need)
         self.Resource_Need = self.maxNeed - self.currentAllocation
+
+
         needList = self.Resource_Need.tolist()
 
+        self.secoundFrame  = tk.Tk()
+        self.secoundFrame.title("Banker's Algorithm")
+
+        
         # Create table for total resources
         total_resources_label = ttk.Label(self.secoundFrame, text="Total Resources")
         total_resources_label.grid(row=0, column=0)
@@ -118,6 +135,9 @@ class BankerGUI:
 
         self.secoundFrame.mainloop()
         #self.thirdFrame.mainloop()
+    #==========================================
+    def test(self):
+        print("nothing")
     #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     def create_tables(self):
             
