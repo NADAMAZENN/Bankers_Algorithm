@@ -186,19 +186,23 @@ class BankerGUI:
    #-------------------------------------------------------------s-------------------------------------------------------------------------------------------------------------------------
     def next_step(self):
         size = len(self.currentAllocation)
-        if  self.counter >= len(self.currentAllocation):
-            self.ResultPage()
+
         if self.counter < len(self.currentAllocation):
-            if not self.finish[self.counter] and all(self.Resource_Need[self.counter] <= self.work):
-                 # If the process can finish, mark it as finished and update the available resources
-                self.work += self.currentAllocation[self.counter]
-                # mark as finish 
-                textprint = "The process released its resources is : " + str(self.counter)
-                tk.Label(self.thirdFrame  , text=textprint).grid(row=4, column=0, sticky="w")    
-                self.finish[self.counter] = True
-                self.found = True  
-            self.counter += 1          
-            self.update_tables(self.work)
+            for i in range(self.currentAllocation.shape[0]):
+                if not self.finish[i] and all(self.Resource_Need[i] <= self.work):
+                    # If the process can finish, mark it as finished and update the available resources
+                    self.work += self.currentAllocation[i]
+                    # mark as finish 
+                    textprint = "The process released its resources is : " + str(i)
+                    tk.Label(self.thirdFrame  , text=textprint).grid(row=4, column=0, sticky="w")    
+                    self.finish[i] = True
+                    self.found = True  
+                    break
+            self.counter += 1
+        self.update_tables(self.work)      
+        if  self.counter >= len(self.currentAllocation):
+            self.ResultPage()    
+  
 
 
    
@@ -254,13 +258,14 @@ class BankerGUI:
 
         while True:
             self.found = False
-            for i in range(self.currentAllocation.shape[0]):
-                # Check if the process is not finished, and if its resource needs are less than or equal to the available resources
-                if not self.finish[i] and all(self.Resource_Need[i] <= self.work):
-                    # If the process can finish, mark it as finished and update the available resources
-                    self.work += self.currentAllocation[i]
-                    self.finish[i] = True
-                    self.found = True
+            for j in range(self.currentAllocation.shape[0]):
+                for i in range(self.currentAllocation.shape[0]):
+                    # Check if the process is not finished, and if its resource needs are less than or equal to the available resources
+                    if not self.finish[i] and all(self.Resource_Need[i] <= self.work):
+                        # If the process can finish, mark it as finished and update the available resources
+                        self.work += self.currentAllocation[i]
+                        self.finish[i] = True
+                        self.found = True
 
             # If we didn't find any processes that can finish, then we exit the loop
             if not self.found:
@@ -302,6 +307,14 @@ if __name__ == '__main__':
 #request = 1,0,0,0
 #process = 0
 
+#*******************************
+#total :6,5,7,6
+#available = 3,1,1,2
+#allocation = 1,2,1,0;1,2,2,1;1,0,3,3
+#maximum = 1,3,5,0;3,3,2,2;1,2,3,4
+#request = 1,0,0,0
+#process = 1
+#******************************
 # no safe sequence
 #total :9,2,5
 #available = 2,1,1
@@ -309,4 +322,7 @@ if __name__ == '__main__':
 #maximum = 2,1,1;5,4,4;3,1,1;1,1,1
 #request = 1,0,0
 #process = 0
+
+
+
     BankerGUI()
